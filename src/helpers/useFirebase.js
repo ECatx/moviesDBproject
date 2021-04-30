@@ -26,10 +26,10 @@ export const database = (movieId) => {
   const commentsCollection = db.collection('comments')
   const commentsQuery = commentsCollection
     .where('movieId', '==', movieId)
-    .orderBy('createdAt')
+    .orderBy('createdAt', 'asc')
 
-  const unsubscribe = commentsQuery.onSnapshot((s) => {
-    comments.value = s.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+  const unsubscribe = commentsQuery.onSnapshot((c) => {
+    comments.value = c.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
   })
 
   onUnmounted(unsubscribe)
